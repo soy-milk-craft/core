@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'soymilkcraft'
+group = 'dev.eunwoo'
 version = '1.0-SNAPSHOT'
 
 repositories {
