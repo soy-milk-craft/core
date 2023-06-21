@@ -1,0 +1,7 @@
+name: soy-core
+version: '${version}'
+main: soymilkcraft.soycore.Soy_core
+api-version: '1.20'
+authors: [eunwoo1104, sunso514]
+description: 두유 크래프트의 코어 플러그인입니다.
+website: https://github.com/soy-milk-craft
