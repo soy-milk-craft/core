@@ -5,10 +5,12 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +33,8 @@ public class ManageExp implements Listener {
 
         Material[] harvestTypes = {
                 Material.WHEAT,
-                Material.BEETROOTS
+                Material.BEETROOTS,
+                Material.CARROTS
         };
 
         List<Material> harvestList = Arrays.asList(harvestTypes);
@@ -45,5 +48,20 @@ public class ManageExp implements Listener {
         }
 
         userData.save(file);
+    }
+
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent event) throws IOException {
+        LivingEntity entity = event.getEntity();
+        Player killer = entity.getKiller();
+        if (killer != null) {
+            File file = new File(this.plugin.getDataFolder(), "users/" + killer.getUniqueId() + ".yml");
+            FileConfiguration userData = YamlConfiguration.loadConfiguration(file);
+            FileConfiguration config = this.plugin.getConfig();
+
+            userData.set("exp.hunting", userData.getInt("exp.hunting") + config.getInt("expRate.hunting"));
+
+            userData.save(file);
+        }
     }
 }
