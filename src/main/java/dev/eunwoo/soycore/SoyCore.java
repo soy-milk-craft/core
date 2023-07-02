@@ -2,9 +2,12 @@ package dev.eunwoo.soycore;
 
 import dev.eunwoo.soycore.listener.CreateUserData;
 import dev.eunwoo.soycore.listener.ManageExp;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import ch.njol.skript.Skript;
 
 import java.io.File;
 
@@ -28,6 +31,10 @@ public final class SoyCore extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new CreateUserData(this), this);
         getServer().getPluginManager().registerEvents(new ManageExp(this), this);
+
+        if (Bukkit.getPluginManager().getPlugin("Skript") != null) {
+            Skript.registerAddon(this);
+        }
     }
 
     @Override
